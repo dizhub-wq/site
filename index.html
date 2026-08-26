@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оружие самозащиты нового поколения</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #c0392b;
+      --secondary: #2c3e50;
+      --accent: #f39c12;
+      --bg: #f8f9fa;
+      --text: #333;
+      --card-bg: #fff;
+      --radius: 12px;
+      --shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Utility */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .btn {
+	  margin-top: 10px;
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(192, 57, 43, 0.4);
+      position: relative;
+      z-index: 10;
+    }
+    .btn:hover { background: #e74c3c; transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 2px solid #fff; box-shadow: none; }
+    .btn-outline:hover { background: #fff; color: var(--primary); }
+    .btn-sm { 
+      padding: 12px 24px; 
+      font-size: 0.95rem; 
+      width: auto;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--secondary) 0%, #1a252f 100%);
+      color: #fff;
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      animation: pulse 10s infinite linear;
+      pointer-events: none;
+    }
+    @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
+    
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .hero-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+    .badge {
+      background: rgba(255,255,255,0.15);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Features */
+    .features { padding: 60px 0; }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: var(--secondary);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      padding: 30px 20px;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-5px); }
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    .feature-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+
+    /* Products */
+    .products { padding: 60px 0; background: #fff; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+    .product-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .product-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    .product-info { 
+      padding: 20px; 
+      flex-grow: 1; 
+      display: flex; 
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .product-info h3 { font-size: 1.3rem; margin-bottom: 8px; }
+    .specs { display: flex; justify-content: space-between; width: 100%; margin: 12px 0; font-weight: 600; color: var(--secondary); }
+    .power-bar {
+      width: 100%;
+      height: 8px; background: #ddd; border-radius: 4px; overflow: hidden; margin-top: 5px;
+    }
+    .power-fill { height: 100%; background: var(--primary); }
+    .product-desc { font-size: 0.95rem; color: #555; margin-top: 10px; margin-bottom: 20px; }
+    .order-btn { 
+      margin-top: auto; 
+      align-self: center;
+      width: auto;
+      min-width: 150px;
+    }
+
+    /* Packaging */
+    .packaging { padding: 60px 0; }
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .pack-card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-left: 5px solid var(--accent);
+    }
+    .pack-card.vip { border-left-color: #d4af37; }
+    .pack-card h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+    
+    /* CTA & Form Overlap Logic */
+    .cta {
+      background: var(--secondary);
+      color: #fff;
+      padding: 40px 0 20px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      margin-bottom: -40px;
+    }
+    .cta-box {
+      background: rgba(255,255,255,0.1);
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .stock-counter {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 5px 0;
+      line-height: 1;
+    }
+    .cta p { margin-bottom: 5px; font-size: 1.1rem; }
+
+    /* Order Form Section */
+    .order-form-section {
+      padding: 60px 0 80px;
+      background: #fff;
+      position: relative;
+      z-index: 5;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+    }
+    .form-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      max-width: 600px;
+      margin: 0 auto;
+      border-top: 4px solid var(--accent);
+    }
+    .form-box h3 { text-align: center; margin-bottom: 25px; color: var(--secondary); }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text); }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
+    .form-message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .form-message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .form-message.loading { background: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 30px 0;
+      font-size: 0.9rem;
+    }
+    footer .cat { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin-top: 10px; display: block; }
+
+    /* Floating Buttons */
+    .floating-buttons {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 9999;
+    }
+    .float-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    .telegram-btn { background: #0088cc; }
+    .whatsapp-btn { background: #25D366; }
+    .max-btn { background: #8e44ad; }
+    .back-to-top-btn { background: var(--primary); }
+    .float-btn:hover {
+      transform: translateY(-5px) scale(1.12);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+    }
+    .float-btn:active { transform: scale(0.92); }
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .float-btn.telegram-btn, .float-btn.whatsapp-btn, .float-btn.max-btn {
+      animation: gentlePulse 3s infinite ease-in-out;
+    }
+    .float-btn:hover { animation: none; }
+    .back-to-top-btn {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+    }
+    .back-to-top-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .float-btn::after {
+      content: attr(title);
+      position: absolute;
+      right: 62px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-family: 'Montserrat', sans-serif;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, right 0.25s;
+    }
+    .float-btn:hover::after {
+      opacity: 1;
+      right: 68px;
+    }
+    @media (max-width: 768px) {
+      .floating-buttons {
+        bottom: 20px;
+        right: 20px;
+        gap: 10px;
+      }
+      .float-btn {
+        width: 46px;
+        height: 46px;
+        font-size: 1.15rem;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { padding: 50px 0 40px; }
+      .hero-badges { flex-direction: column; align-items: center; }
+      .section-title { font-size: 1.6rem; }
+      .form-box { padding: 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div class="container">
+      <h1 class="hero-title">Оружие самозащиты нового поколения!</h1>
+      <p class="hero-subtitle">Уникальная разработка русских учёных! Не требует разрешения на ношение и использование.</p>
+      
+      <div style="margin: 30px 0;">
+        <a href="#products" class="btn">Выбрать калибр</a>
+        <a href="#packaging" class="btn btn-outline" style="margin-left: 10px;">Упаковка VIP</a>
+      </div>
+
+      <div class="hero-badges">
+        <div class="badge"><i class="fa-solid fa-shield-halved"></i> Без лицензии</div>
+        <div class="badge"><i class="fa-solid fa-bread-slice"></i> 100% Хлебобулочные</div>
+        <div class="badge"><i class="fa-solid fa-bolt"></i> Мгновенный эффект</div>
+        <div class="badge"><i class="fa-solid fa-gavel"></i> Полностью легально</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">Почему это работает?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fa-solid fa-user-secret feature-icon"></i>
+          <h3>Эффект неожиданности</h3>
+          <p>Ни один гопник не ожидает удара буханкой. Психологический шок гарантирует ваше спасение.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa-solid fa-fire feature-icon"></i>
+          <h3>Убойная прочность</h3>
+          <p>Высушено в итальянских печах по секретной технологии. Твёрже камня, легче кастета.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa-solid fa-gift feature-icon"></i>
+          <h3>Идеальный подарок</h3>
+          <p>Для коллег, начальства и родственников. Покажет вашу заботу и чувство юмора.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa-solid fa-wallet feature-icon"></i>
+          <h3>Доступная цена</h3>
+          <p>Дешевле перцового баллона, эффективнее крика. Скидка 30% до конца акции!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="products">
+    <div class="container">
+      <h2 class="section-title">Арсенал самообороны</h2>
+      <div class="products-grid">
+        
+        <!-- Товар 1 -->
+        <div class="product-card">
+          <img src="images/buhanka.jpg" alt="Буханка-Кувалда" class="product-img" onerror="this.src='https://placehold.co/400x300/e0e0e0/555?text=Буханка'">
+          <div class="product-info">
+            <h3>Модель 1: «Буханка-Кувалда возмездия»</h3>
+            <div class="specs">
+              <span><i class="fa-solid fa-weight-hanging"></i> 500 г</span>
+              <span><i class="fa-solid fa-fire-flame-curved"></i> Урон: 9/10</span>
+            </div>
+            <div class="power-bar"><div class="power-fill" style="width: 90%;"></div></div>
+            <p class="product-desc">Классика жанра. Идеальна для ближнего боя и отпугивания особо наглых субъектов.</p>
+            <a href="#order-form" class="btn btn-sm order-btn">Заказать</a>
+          </div>
+        </div>
+
+        <!-- Товар 2 -->
+        <div class="product-card">
+          <img src="images/baton.jpg" alt="Батон-Молот" class="product-img" onerror="this.src='https://placehold.co/400x300/e0e0e0/555?text=Батон'">
+          <div class="product-info">
+            <h3>Модель 2: «Батон-Молот гнева»</h3>
+            <div class="specs">
+              <span><i class="fa-solid fa-weight-hanging"></i> 450 г</span>
+              <span><i class="fa-solid fa-fire-flame-curved"></i> Урон: 7/10</span>
+            </div>
+            <div class="power-bar"><div class="power-fill" style="width: 70%;"></div></div>
+            <p class="product-desc">Удлинённая рукоять позволяет держать дистанцию. Подходит для размашистых ударов.</p>
+            <a href="#order-form" class="btn btn-sm order-btn">Заказать</a>
+          </div>
+        </div>
+
+        <!-- Товар 3 -->
+        <div class="product-card">
+          <img src="images/baget.jpg" alt="Багет-Палка" class="product-img" onerror="this.src='https://placehold.co/400x300/e0e0e0/555?text=Багет'">
+          <div class="product-info">
+            <h3>Модель 3: «Багет-Палка-отбивалка»</h3>
+            <div class="specs">
+              <span><i class="fa-solid fa-weight-hanging"></i> 400 г</span>
+              <span><i class="fa-solid fa-fire-flame-curved"></i> Урон: 6/10</span>
+            </div>
+            <div class="power-bar"><div class="power-fill" style="width: 60%;"></div></div>
+            <p class="product-desc">Элегантный выбор для ценителей французской кухни и уличного фехтования.</p>
+            <a href="#order-form" class="btn btn-sm order-btn">Заказать</a>
+          </div>
+        </div>
+
+        <!-- Товар 4: Вино -->
+        <div class="product-card">
+          <img src="images/wine.jpg" alt="Вино ударило по голове" class="product-img" onerror="this.src='https://placehold.co/400x300/e0e0e0/555?text=Вино+0.7л'">
+          <div class="product-info">
+            <h3>🍷 «Вино ударило по голове»</h3>
+            <div class="specs">
+              <span><i class="fa-solid fa-wine-bottle"></i> 0.7 л</span>
+              <span><i class="fa-solid fa-skull-crossbones"></i> Крит. урон</span>
+            </div>
+            <div class="power-bar"><div class="power-fill" style="width: 100%; background: #8e44ad;"></div></div>
+            <p class="product-desc">Тяжёлая артиллерия. Стеклянный корпус + жидкость внутри. Двойной эффект: физический и моральный.</p>
+            <a href="#order-form" class="btn btn-sm order-btn">Заказать</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGING -->
+  <section id="packaging" class="packaging">
+    <div class="container">
+      <h2 class="section-title">Варианты упаковки</h2>
+      <div class="pack-grid">
+        <div class="pack-card">
+          <h3><i class="fa-solid fa-bag-shopping" style="color: #27ae60;"></i> Стандарт (Бесплатно)</h3>
+          <p>Учитывая тяжёлую экономическую обстановку в России, все продукты комплектуются абсолютно БЕСПЛАТНЫМ, ПРОЧНЫМ и ПРОЗРАЧНЫМ полиэтиленовым пакетом! Преступник не ожидает смертельной опасности от безобидного вида и получит экстремальный шок.</p>
+        </div>
+        <div class="pack-card vip">
+          <h3><i class="fa-solid fa-crown" style="color: #d4af37;"></i> VIP Подарочная</h3>
+          <p>Для тех, кто ценит стиль. Изделие упаковывается в позолоченную или деревянную коробку с бархатной подложкой. Идеально для начальства и VIP-клиентов. Конечно, стоит дороже, но PROFIT гарантирован!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box">
+        <h2 style="margin-bottom: 10px;">⚡ Акция ограничена!</h2>
+        <p>Скидка <span style="color: #f1c40f; font-weight: bold;">30%</span> действует только до 11 июня 2017 года.</p>
+        
+        <div class="stock-counter" id="stock">38</div>
+        
+        <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0px; margin-bottom: 0px;">Изделий осталось на складе</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER FORM -->
+  <section id="order-form" class="order-form-section">
+    <div class="container">
+      <div class="form-box">
+        <h3><i class="fa-solid fa-cart-shopping"></i> Оформить заказ</h3>
+        <form id="orderForm">
+          <div class="form-group">
+            <label for="name">Имя *</label>
+            <input type="text" id="name" name="name" required placeholder="Ваше имя">
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="+7 (___) ___-__-__">
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail / Telegram *</label>
+            <input type="text" id="email" name="email" required placeholder="email@example.com или @username">
+          </div>
+          <div class="form-group">
+            <label for="message">Сообщение *</label>
+            <textarea id="message" name="message" required placeholder="Какой товар хотите заказать? Комментарии..."></textarea>
+          </div>
+          <button type="submit" class="btn" style="width: 100%;">Отправить заявку</button>
+          <div id="formMessage" class="form-message"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>© 2017 Лаборатория Хлебобулочной Самообороны. Все права защищены (булкой).</p>
+      <span class="cat">🐈 КОТЭ, СКОРО БУДЕМ МИЛЛИОНЕРАМИ...</span>
+    </div>
+  </footer>
+
+  <!-- FLOATING BUTTONS -->
+  <div class="floating-buttons">
+    <a href="https://t.me/dizhub" target="_blank" rel="noopener noreferrer" class="float-btn telegram-btn" title="Telegram">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+    <a href="https://wa.me/79940009059" target="_blank" rel="noopener noreferrer" class="float-btn whatsapp-btn" title="WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <a href="https://max.ru/u/f9LHodD0cOLBNvxcFk7BOMTRI3ykAioj2CJ1MBHwaZWkuJ7fBFxMVF9BM7M" target="_blank" rel="noopener noreferrer" class="float-btn max-btn" title="MAX">
+      <i class="fa-solid fa-comment-dots"></i>
+    </a>
+    <button id="backToTop" class="float-btn back-to-top-btn" title="Наверх">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <script>
+    // Stock counter
+    const stockEl = document.getElementById('stock');
+    let stock = 38;
+    setInterval(() => {
+      if (stock > 3 && Math.random() > 0.7) {
+        stock--;
+        stockEl.textContent = stock;
+        stockEl.style.transform = 'scale(1.2)';
+        setTimeout(() => stockEl.style.transform = 'scale(1)', 200);
+      }
+    }, 8000);
+
+    // Form handling
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const messageEl = document.getElementById('formMessage');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      
+      messageEl.textContent = 'Отправка заявки...';
+      messageEl.className = 'form-message loading';
+      messageEl.style.display = 'block';
+      submitBtn.disabled = true;
+      
+      const formData = new FormData(form);
+      
+      try {
+        const response = await fetch('send.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          messageEl.textContent = '✅ Заявка отправлена! Мы свяжемся с вами.';
+          messageEl.className = 'form-message success';
+          form.reset();
+        } else {
+          messageEl.textContent = '❌ ' + (result.message || 'Ошибка отправки');
+          messageEl.className = 'form-message error';
+        }
+      } catch (error) {
+        messageEl.textContent = '❌ Ошибка соединения. Проверьте интернет.';
+        messageEl.className = 'form-message error';
+        console.error('Fetch error:', error);
+      } finally {
+        submitBtn.disabled = false;
+        setTimeout(() => {
+          messageEl.style.display = 'none';
+        }, 5000);
+      }
+    });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
