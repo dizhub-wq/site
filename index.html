@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вош Ми! Автомойка - Владивосток</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- БАЗОВЫЕ ПЕРЕМЕННЫЕ И СБРОС --- */
+        :root {
+            --color-bg: #121212;
+            --color-surface: #1E1E1E;
+            --color-text-main: #FFFFFF;
+            --color-text-muted: #E0E0E0; 
+            --color-accent: #FDB913;
+            --color-accent-hover: #e5a700;
+            --radius: 12px;
+            --container-width: 1200px;
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- УТИЛИТЫ --- */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-accent);
+            color: #000;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: var(--color-accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            color: #fff;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            transition: opacity var(--transition);
+        }
+        .btn-whatsapp:hover { opacity: 0.85; }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 40px;
+        }
+        .section-title span {
+            color: var(--color-accent);
+        }
+
+        /* --- АНИМАЦИЯ --- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .fade-up:nth-child(2) { animation-delay: 0.1s; }
+        .fade-up:nth-child(3) { animation-delay: 0.2s; }
+        .fade-up:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-accent);
+            letter-spacing: -0.02em;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 6px;
+        }
+        .header-phone {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+        }
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: background var(--transition), transform 0.2s;
+            color: #fff;
+            font-size: 14px;
+        }
+        .social-icons a:hover {
+            transform: scale(1.1);
+            background: var(--color-accent);
+            color: #000;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 140px 0 100px;
+            position: relative;
+            background-color: var(--color-bg);
+            overflow: hidden;
+        }
+        .hero-background {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center bottom;
+            z-index: 1;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3; 
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+        .hero h1 span { color: var(--color-accent); }
+        .hero p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+        .stat-item h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-accent);
+        }
+        .stat-item p {
+            font-size: 0.9rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        /* --- SERVICES --- */
+        .services { padding: 80px 0; }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .service-card {
+            background-color: var(--color-surface);
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--color-accent);
+        }
+        .service-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .service-card p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+        
+        .service-card .price { 
+            font-size: 1.6rem; font-weight: 800; color: var(--color-accent); 
+            margin-bottom: 20px; display: block;
+        }
+        
+        .service-card button {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .service-card button:hover { background: var(--color-accent); color: #000; border-color: var(--color-accent); }
+
+        /* --- WHY US --- */
+        .why-us { padding: 80px 0; background-color: var(--color-surface); }
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .why-item { display: flex; flex-direction: column; align-items: flex-start; }
+        .why-item i { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 15px; }
+        .why-item h4 { font-size: 1.2rem; margin-bottom: 8px; }
+        .why-item p { color: var(--color-text-muted); font-size: 0.95rem; }
+
+        /* --- TIMELINE --- */
+        .timeline { padding: 80px 0; }
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .step-item {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius);
+        }
+        .step-item i { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 10px; }
+        .step-item h4 { font-size: 1rem; margin-bottom: 5px; }
+        .step-item p { font-size: 0.85rem; color: var(--color-text-muted); }
+
+        /* --- FORM / CONTACT --- */
+        .contact { padding: 80px 0; background-color: var(--color-surface); }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .form-wrapper h2 { margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--color-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border var(--transition);
+        }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--color-accent); }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--color-text-muted); }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 20px; }
+        .checkbox-group input { width: auto; margin-top: 5px; accent-color: var(--color-accent); }
+        .checkbox-group label { font-size: 0.85rem; color: var(--color-text-muted); margin: 0; }
+
+        .contact-alternative {
+            padding: 30px;
+            background-color: var(--color-bg);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+        .contact-alternative h3 { margin-bottom: 10px; }
+        .contact-alternative p { color: var(--color-text-muted); margin-bottom: 20px; }
+
+        /* --- LOCATION (ОБНОВЛЕННАЯ ЗАГЛУШКА) --- */
+        .location { padding: 80px 0; }
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+        }
+        .loc-info h3 { font-size: 1.4rem; margin-bottom: 20px; }
+        .loc-detail { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .loc-detail div { display: flex; align-items: center; gap: 15px; font-size: 1rem; color: var(--color-text-muted); }
+        .loc-detail i { width: 20px; font-size: 1.2rem; color: var(--color-accent); flex-shrink: 0; }
+        .loc-detail span { color: #fff; font-weight: 600; }
+        
+        /* Стили для карты-заглушки */
+        .map-container {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 300px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(30, 30, 30, 0.5);
+        }
+        .map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            filter: brightness(0.7);
+        }
+        .map-container img:hover {
+            transform: scale(1.02);
+            filter: brightness(0.9);
+        }
+        .map-placeholder-content {
+            position: absolute;
+            z-index: 2;
+            text-align: center;
+            pointer-events: none;
+        }
+        .map-placeholder-content i {
+            font-size: 3.5rem;
+            color: var(--color-accent);
+            margin-bottom: 10px;
+            display: block;
+        }
+        .map-placeholder-content p {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+        footer a { text-decoration: underline; transition: color var(--transition); }
+        footer a:hover { color: #fff; }
+        .footer-links { margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
+
+        /* --- SCROLL TOP BUTTON --- */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--color-accent);
+            color: #000;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s ease;
+            z-index: 999;
+            font-size: 1.2rem;
+        }
+        #scrollToTopBtn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #scrollToTopBtn:hover {
+            transform: scale(1.1);
+            background-color: var(--color-accent-hover);
+        }
+
+        /* --- MEDIA --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.8rem; }
+            .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+            .location-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .logo-text { font-size: 1.4rem; }
+            .header-right { gap: 8px; }
+            .header-phone { font-size: 0.9rem; }
+            .social-icons a { width: 28px; height: 28px; font-size: 12px; }
+            .hero { padding: 120px 0 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .hero-stats { gap: 20px; }
+            .stat-item h3 { font-size: 1.4rem; }
+            .section-title { font-size: 2rem; }
+            .btn-primary, .btn-whatsapp { width: 100%; justify-content: center; padding: 18px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .why-us-grid { grid-template-columns: 1fr; }
+            .timeline-grid { grid-template-columns: 1fr 1fr; }
+            #scrollToTopBtn { width: 45px; height: 45px; right: 15px; bottom: 15px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .timeline-grid { grid-template-columns: 1fr; }
+            .contact-alternative { padding: 20px; }
+            .footer-links { flex-direction: column; gap: 10px; }
+            .header-phone { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo-wrapper">
+                <div class="logo-text">ВОШ МИ!</div>
+            </div>
+            <div class="header-right">
+                <div class="social-icons">
+                    <!-- WhatsApp -->
+                    <a href="https://api.whatsapp.com/send/?phone=79025560600&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%0A%0A%D0%9F%D0%B8%D1%88%D1%83+%D0%B8%D0%B7+%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F+2%D0%93%D0%98%D0%A1.%0A%0A&type=phone_number&app_absent=0" target="_blank" aria-label="WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <!-- Telegram -->
+                    <a href="https://t.me/+79025560600" target="_blank" aria-label="Telegram">
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                    <!-- Max -->
+                    <a href="https://max.ru/u/f9LHodD0cOK1eA7jPkyO8cERd9K8ZUW753m7zgUCcBFPq2_6skzH1PlwJk0" target="_blank" aria-label="Max">
+                        <i class="fa-solid fa-m"></i>
+                    </a>
+                </div>
+                <a href="tel:+79025560600" class="header-phone">+7 902 556-06-00</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-background"></div>
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1>Мойка авто за 30 минут с <span>гарантией блеска</span></h1>
+                <p>Современная автомойка в ЖК Изумрудный. Вам не нужно ждать — мы ценим ваше время. Работаем для вас ежедневно.</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="#booking" class="btn-primary">Записаться сейчас</a>
+                    <a href="#booking" class="btn-primary" style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3);">Рассчитать стоимость</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item"><h3>4 860+</h3><p>автомобилей помыто</p></div>
+                    <div class="stat-item"><h3>4.9 ★</h3><p>рейтинг на картах</p></div>
+                    <div class="stat-item"><h3>2019</h3><p>год основания сервиса</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <div class="section-title">Услуги и <span>цены</span></div>
+                <div class="section-subtitle">Прозрачная стоимость без скрытых комиссий. Вы получаете то, за что платите.</div>
+                <div class="services-grid">
+                    <article class="service-card fade-up">
+                        <div>
+                            <h3>Комплексная мойка</h3>
+                            <p>Бесконтактная мойка кузова, дисков и арок. Тщательная очистка от грязи и пыли.</p>
+                            <span class="price">1 500 ₽</span>
+                        </div>
+                        <button onclick="location.href='#booking'">Заказать</button>
+                    </article>
+                    
+                    <article class="service-card fade-up">
+                        <div>
+                            <h3>Химчистка<br>салона</h3>
+                            <p>Глубокая очистка сидений, потолка, панели и ковролина. Удаление запахов и пятен.</p>
+                            <span class="price">3 500 ₽</span>
+                        </div>
+                        <button onclick="location.href='#booking'">Заказать</button>
+                    </article>
+                    
+                    <article class="service-card fade-up">
+                        <div>
+                            <h3>Защита<br>«Антидождь»</h3>
+                            <p>Нанесение гидрофобного состава на стекла. Улучшает видимость в дождь и снег.</p>
+                            <span class="price">1 200 ₽</span>
+                        </div>
+                        <button onclick="location.href='#booking'">Заказать</button>
+                    </article>
+                    
+                    <article class="service-card fade-up">
+                        <div>
+                            <h3>Полировка<br>кузова</h3>
+                            <p>Удаление мелких царапин и потертостей. Возвращает первоначальный блеск ЛКП.</p>
+                            <span class="price">2 500 ₽</span>
+                        </div>
+                        <button onclick="location.href='#booking'">Заказать</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-us">
+            <div class="container">
+                <div class="section-title">Почему выбирают <span>нас</span></div>
+                <div class="section-subtitle">Качественный сервис, удобство и честный подход к каждому клиенту.</div>
+                <div class="why-us-grid">
+                    <div class="why-item fade-up">
+                        <i class="fa-solid fa-leaf"></i>
+                        <h4>Используем эко химию</h4>
+                        <p>Безопасные составы, которые не повреждают лакокрасочное покрытие и защищают кузов.</p>
+                    </div>
+                    <div class="why-item fade-up">
+                        <i class="fa-regular fa-clock"></i>
+                        <h4>Без очередей: запись онлайн</h4>
+                        <p>Бронируйте удобное время за 2 минуты. Приезжайте и сразу приступайте к мойке.</p>
+                    </div>
+                    <div class="why-item fade-up">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        <h4>Гарантия качества</h4>
+                        <p>Мы отвечаем за результат. Если вам что-то не понравится, проведем повторную мойку.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline">
+            <div class="container">
+                <div class="section-title">Этапы <span>работы</span></div>
+                <div class="section-subtitle">Прозрачный процесс: вы точно знаете, что происходит с вашим автомобилем.</div>
+                <div class="timeline-grid">
+                    <div class="step-item fade-up">
+                        <i class="fa-solid fa-car-side"></i>
+                        <h4>Осмотр и оценка</h4>
+                        <p>Совместный осмотр авто для выявления повреждений и обсуждения деталей.</p>
+                    </div>
+                    <div class="step-item fade-up">
+                        <i class="fa-solid fa-soap"></i>
+                        <h4>Основная мойка</h4>
+                        <p>Бесконтактная очистка кузова, дисков и арок специальными средствами.</p>
+                    </div>
+                    <div class="step-item fade-up">
+                        <i class="fa-solid fa-fan"></i>
+                        <h4>Сушка и контроль</h4>
+                        <p>Тщательная сушка и проверка качества. Устранение разводов на кузове.</p>
+                    </div>
+                    <div class="step-item fade-up">
+                        <i class="fa-solid fa-hand-peace"></i>
+                        <h4>Выдача авто</h4>
+                        <p>Финальная презентация результата. Мы уверены в качестве, вы — в безопасности.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="booking">
+            <div class="container contact-grid">
+                <div class="form-wrapper">
+                    <h2 class="section-title">Записаться <span>онлайн</span></h2>
+                    <p class="section-subtitle">Заполните форму, и мы подберем удобное время для визита. Это займет всего минуту.</p>
+                    <form id="bookingForm" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" placeholder="Александр" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Номер телефона</label>
+                            <input type="tel" id="phone" placeholder="+7 902 556-06-00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Интересующая услуга</label>
+                            <select id="service">
+                                <option value="Комплексная мойка">Комплексная мойка</option>
+                                <option value="Химчистка салона">Химчистка салона</option>
+                                <option value="Защита Антидождь">Защита Антидождь</option>
+                                <option value="Полировка кузова">Полировка кузова</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Желаемое время</label>
+                            <input type="datetime-local" id="time" required>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="agree" required>
+                            <label for="agree">Я согласен на обработку персональных данных в соответствии с Политикой конфиденциальности</label>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">Отправить заявку</button>
+                    </form>
+                </div>
+                <div class="contact-alternative">
+                    <h3>Предпочитаете мессенджеры?</h3>
+                    <p>Напишите нам в WhatsApp, и мы оперативно ответим на все вопросы и подберем время для записи.</p>
+                    <a href="https://api.whatsapp.com/send/?phone=79025560600&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%0A%0A%D0%9F%D0%B8%D1%88%D1%83+%D0%B8%D0%B7+%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F+2%D0%93%D0%98%D0%A1.%0A%0A&type=phone_number&app_absent=0" target="_blank" class="btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        Написать в WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="location">
+            <div class="container location-grid">
+                <div class="loc-info">
+                    <h3>Контакты и <span>локация</span></h3>
+                    <div class="loc-detail">
+                        <div><i class="fa-solid fa-location-dot"></i> <span>Адрес:</span> ЖК Изумрудный, ул. Майора Филипова, 11 ст4, 1 этаж, Владивосток</div>
+                        <div><i class="fa-solid fa-phone"></i> <span>Телефон:</span> +7 902 556-06-00</div>
+                        <div><i class="fa-regular fa-envelope"></i> <span>E-mail:</span> info@washmi-auto.ru</div>
+                        <div><i class="fa-regular fa-clock"></i> <span>График:</span> Ежедневно с 09:00 до 21:00</div>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <!-- Сюда ты кладешь файл map.jpg с картой из 2ГИС -->
+                    <!-- Если файла нет, будет красивая заглушка с иконкой -->
+                    <img src="map.jpg" alt="Карта расположения Вош Ми!" onerror="this.style.display='none'">
+                    
+                    <div class="map-placeholder-content">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <p>ул. Майора Филипова, 11 ст4<br>ЖК Изумрудный</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Вош Ми! Автомойка. Все права защищены.</p>
+            <div class="footer-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Условия использования</a>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollToTopBtn" onclick="scrollToTop()" aria-label="Вернуться наверх">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); 
+            
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const time = document.getElementById('time').value;
+            const agree = document.getElementById('agree').checked;
+
+            if (!name || !phone || !time) {
+                alert('Пожалуйста, заполните все обязательные поля (Имя, Телефон и Время).');
+                return;
+            }
+
+            if (!agree) {
+                alert('Необходимо дать согласие на обработку персональных данных.');
+                return;
+            }
+
+            alert('Спасибо, ' + name + '! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+            document.getElementById('bookingForm').reset();
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        const scrollBtn = document.getElementById('scrollToTopBtn');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
